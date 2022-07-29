@@ -22,8 +22,15 @@ python test.py
 
 ### 已有功能
 ```
+# 实体抽取, entity_extraction
+# 语义相似度, text_similarity
+# 金融关系抽取, financial_relationship_extraction
+# 广告文案生成, ad_generation
+# 医学领域意图分类, medical_domain_intent_classifier
 # 情感分类, sentiment_classifier, dataset: eprstmt
+# 对象抽取, comment_object_extraction
 # 新闻分类, news_classifier, dataset: tnews
+# 
 
 ```
 
@@ -39,7 +46,10 @@ res = mz.inference(task_type='sentiment_classifier',
 
 可能遇到问题：
 ```
-# 由于目前是 huggingface 上 private 状态，联系我关联公司账号组后方可顺利下载 
+# 由于目前是 huggingface 上 private 状态，联系我关联公司账号组后，执行如下指令
+transformers-cli login 
+自行根据提示进行账号关联
+方可顺利使用我们的private模型
 ```
 
 
