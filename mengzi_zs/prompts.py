@@ -7,11 +7,13 @@ class PromptMap():
     def task_type_map(self, task_type):
         task_map = {
                     'sentiment_classifier': self.sentiment_cls,
-                    'news_classifier': self.news_cls
+                    'news_classifier': self.news_cls,
+                    'entity_extractor': self.entity_extr,
+                    'text_similarity': self.text_sim,
                     }
         return task_map[task_type]
 
-    def create_input_with_prompt(self, task_type, input_string):
+    def create_input_with_prompt(self, task_type, input_string, input_string_2=None):
         self.prompt_map = self.task_type_map(task_type)
         return self.prompt_map(input_string)
 
@@ -33,5 +35,10 @@ class PromptMap():
                 #    f'这条新闻是关于什么主题的？新闻：{s}。选项：{"，".join(label_list)}。答：',
                 #    f'这是关于“{"，".join(label_list)}”中哪个选项的文章？文章：{s}。 答：']
         return prompts
-        
+    
+    def entity_extr(self, s):
+        # dataset name: 
+        prompts = [f'“{s}” 找出上述句子中的实体和他们对应的类别']
+        return prompts
+    
     

@@ -39,7 +39,10 @@ res = mz.inference(task_type='sentiment_classifier',
 
 可能遇到问题：
 ```
-# 由于目前是 huggingface 上 private 状态，联系我关联公司账号组后方可顺利下载 
+# 由于目前是 huggingface 上 private 状态，联系我关联公司账号组后，执行如下指令
+transformers-cli login 
+自行根据提示进行账号关联
+方可顺利使用我们的private模型
 ```
 
 
