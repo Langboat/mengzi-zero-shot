@@ -4,8 +4,8 @@ NLU &amp; NLG (zero-shot) depend on mengzi-t5-base-mt pretrained model
 ## Quick Start
 ### 新建 conda 环境
 ```
-conda create -n mengzi python=3.7.11 -y
-conda activate mengzi
+conda create -n mengzi_env python=3.7.11 -y
+conda activate mengzi_env
 ```
 
 ### pip 安装 （release后这行会改） 
