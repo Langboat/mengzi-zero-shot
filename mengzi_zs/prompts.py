@@ -7,7 +7,10 @@ class PromptMap():
     def task_type_map(self, task_type):
         task_map = {
                     'sentiment_classifier': self.sentiment_cls,
-                    'news_classifier': self.news_cls
+                    'news_classifier': self.news_cls,
+                    "medical_domain_intent_classifier":self.domain_cls,
+                    "entity_extraction":self.entity_cls,
+                    "semantic_similarity":self.similarity,
                     }
         return task_map[task_type]
 
@@ -33,5 +36,26 @@ class PromptMap():
                 #    f'这条新闻是关于什么主题的？新闻：{s}。选项：{"，".join(label_list)}。答：',
                 #    f'这是关于“{"，".join(label_list)}”中哪个选项的文章？文章：{s}。 答：']
         return prompts
-        
+    
+    def domain_cls(self,s):
+        prompts = [f'问题:“{s}”。此问题的医学意图是什么？选项：病情诊断，病因分析，治疗方案，就医建议，指标解读，疾病描述，后果表述，注意事项，功效作用，医疗费用。']
+        return prompts
+    
+    def entity_cls(self,s):
+        prompts = [f'“{s}”找出上述句子中的实体和他们对应的类别']
+        return prompts
+    
+    def similarity(self,s):
+        prompts = [f'{s}这两句话是在说同一件事吗?']
+        return prompts
+
+    def ad(self,s):
+        prompts = [f'请根据以下产品信息设计广告文案。{s}']
+        return prompts
+    
+    def finance(self,s):
+        prompts = [f'{s}答:']
+        return prompts
+    
+    
     
