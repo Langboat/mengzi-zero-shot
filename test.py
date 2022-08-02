@@ -1,8 +1,5 @@
 from mengzi_zs import MengziZeroShot
 
-access_token="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"
-
-
 mz = MengziZeroShot()
 mz.load()
 
