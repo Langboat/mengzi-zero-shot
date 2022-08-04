@@ -24,7 +24,7 @@ class MengziZeroShot(object):
         input_text = create_input_with_prompt(task_type, input_string,input_string2 )
 
         # tokenize
-        encodings = self.tokenizer(input_text, max_length=512, pad_to_max_length=True, return_tensors="pt")
+        encodings = self.tokenizer(input_text, max_length=512, padding=True, return_tensors="pt")
         # print('encodings', encodings)
 
         # model inference

@@ -41,6 +41,13 @@ res = mz.inference(task_type='sentiment_classifier',
                    input_string='15.4寸笔记本的键盘确实爽，基本跟台式机差不多了，蛮喜欢数字小键盘，输数字特方便，样子也很美观，做工也相当不错')
 ```
 
+### 代码格式规范
+```
+pip install pycodestyle==2.9.1
+# usage:
+pycodestyle test.py
+```
+
 ## TODO
 1. 目前 cpu inference ，可补充gpu inference
 2. 对比 cpu gpu inference 结果差异
