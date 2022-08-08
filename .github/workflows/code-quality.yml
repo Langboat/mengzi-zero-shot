@@ -29,4 +29,4 @@ jobs:
 
     - name: Check code quality
       run: |
-        flake8 --ignore=E501,E402 .。/setup.py
+        flake8 --ignore=E501,E402 ../setup.py
