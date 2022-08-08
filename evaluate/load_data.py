@@ -135,7 +135,6 @@ def finre_dataset() -> pd.DataFrame():
     return df
 
 
-
 """
 由于Cote数据集dev数据集没有label,所以在这里采用train数据集。
 """

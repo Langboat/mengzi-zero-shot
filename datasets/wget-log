@@ -1,0 +1,26 @@
+--2022-08-05 15:10:25--  https://raw.githubusercontent.com/thunlp/Chinese_NRE/master/data/FinRE/valid.txt
+Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.109.133, 185.199.111.133, 185.199.108.133, ...
+Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.109.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 278652 (272K) [text/plain]
+Saving to: ‘valid.txt’
+
+     0K .......... .......... .......... .....                 12% 72.2M=0s
+
+2022-08-08 10:22:10 (72.2 MB/s) - Read error at byte 36041/278652 (Success). Retrying.
+
+--2022-08-08 10:22:11--  (try: 2)  https://raw.githubusercontent.com/thunlp/Chinese_NRE/master/data/FinRE/valid.txt
+Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.109.133|:443... connected.
+HTTP request sent, awaiting response... 206 Partial Content
+Length: 278652 (272K), 242611 (237K) remaining [text/plain]
+Saving to: ‘valid.txt’
+
+     0K ,,,,,,,,,, ,,,,,,,,,, ,,,,,,,,,, ,,,,,..... .......... 18% 6.37K 1m58s
+    50K .......... .......... .......... .......... .......... 36% 6.14K 42s
+   100K .......... .......... .......... .......... .......... 55% 54.9K 18s
+   150K .......... .......... .......... .......... .......... 73% 63.1K 8s
+   200K .......... .......... .......... .......... .......... 91% 8.49K 2s
+   250K .......... .......... ..                              100% 13.0K=25s
+
+2022-08-08 10:27:14 (9.37 KB/s) - ‘valid.txt’ saved [278652/278652]
+
