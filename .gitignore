@@ -1,3 +1,4 @@
 build
 dist
 mengzi_zero_shot.egg-info
+*.whl
