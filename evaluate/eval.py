@@ -1,9 +1,9 @@
 # from mengzi_zs import MengziZeroShot
-from load_data import *
+from mengzi_zs import MengziZeroShot
+from load_data import eprstmt_dataset, tnews_dataset, lcqmc_dataset, cluner_dataset, finre_dataset, cote_dataset, cepsum_dataset, quake_qic_dataset
 from metrics import cal_acc, ner_get_f1_score, cal_f1, rouge_2_corpus_multiple_target
 import sys
 sys.path.append("../")
-from mengzi_zs import MengziZeroShot
 #  Overview
 #  task: sentiment_classifier, dataset: eprstmt
 #  task: news_classifier, dataset: tnews
@@ -57,9 +57,9 @@ for task_name in task_name_list:
                 content, entity = sub_res.split(":")
                 sub_cvt_res[entity] = content
             cvt_res.append(sub_cvt_res)
-        f_score, avg = ner_get_f1_score(pre_lines=cvt_res, gold_lines=list(df['label'])[
-                                        :DEV_NUM], labels=['地址', '书名', '公司', '游戏', '政府', '电影', '姓名', '组织', '职位', '景点'])
-        print(task_name, f"avg:{avg} f_score:{f_score}")
+        _, avg = ner_get_f1_score(pre_lines=cvt_res, gold_lines=list(df['label'])[
+            :DEV_NUM], labels=['地址', '书名', '公司', '游戏', '政府', '电影', '姓名', '组织', '职位', '景点'])
+        print(task_name, f"avg:{avg}")
     elif task_name in ["financial_relationship_extraction"]:
         res_score = cal_f1(labels=list(df['label'])[:DEV_NUM], preds=res_list)
         print(task_name, f"f1:{res_score}")
@@ -68,8 +68,8 @@ for task_name in task_name_list:
         for preds, labels in zip(res_list, df_label_list):
             res_score = cal_f1(labels=labels, preds=preds)
             sum_f1.append(res_score)
-            avg_f1 = sum(sum_f1)/len(sum_f1)
-        print(task_name, f"avf f1:{avg_f1}")
+            avg_f1 = sum(sum_f1) / len(sum_f1)
+        print(task_name, f"avg f1:{avg_f1}")
     elif task_name in ["ad_generation"]:
         res_score = rouge_2_corpus_multiple_target(
             peers=list(df['label'])[:DEV_NUM], models=res_list)

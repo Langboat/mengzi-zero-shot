@@ -1,16 +1,16 @@
 from __future__ import division
-from sklearn.metrics import accuracy_score,f1_score
+from sklearn.metrics import accuracy_score, f1_score
 import collections
-
 import six
-import sys
 
 
 def cal_acc(labels, preds):
     return accuracy_score(labels, preds)
 
+
 def cal_f1(labels, preds):
-    return f1_score(labels,preds,average='micro')
+    return f1_score(labels, preds, average='micro')
+
 
 def get_f1_score_label(pre_lines, gold_lines, label="organization"):
     """
@@ -22,10 +22,10 @@ def get_f1_score_label(pre_lines, gold_lines, label="organization"):
     FP = 0
     FN = 0
     for pre, gold in zip(pre_lines, gold_lines):
-        
+
         pre = pre.get(label, {})
         gold = gold.get(label, {})
-       
+
         for i in pre:
             if i in gold:
                 TP += 1
@@ -42,7 +42,8 @@ def get_f1_score_label(pre_lines, gold_lines, label="organization"):
     # print(p, r, f)
     return f
 
-def ner_get_f1_score(pre_lines=None, gold_lines=None,labels=None):
+
+def ner_get_f1_score(pre_lines=None, gold_lines=None, labels=None):
     # pre_lines = [json.loads(line.strip()) for line in open(pre_file) if line.strip()]
     # gold_lines = [json.loads(line.strip()) for line in open(gold_file) if line.strip()]
 
@@ -50,21 +51,20 @@ def ner_get_f1_score(pre_lines=None, gold_lines=None,labels=None):
 
     # print(sum_num([ list(gold.keys()) for gold in gold_lines],[]))
 
-    
-    gold_labels=set(sum([ list(gold.keys()) for gold in gold_lines],[]))
-    pre_labels=set(sum([ list(pre.keys()) for pre in pre_lines],[]))
+    gold_labels = set(sum([list(gold.keys()) for gold in gold_lines], []))
+    pre_labels = set(sum([list(pre.keys()) for pre in pre_lines], []))
     # print(gold_labels,pre_labels)
 
     sum_num = 0
     for label in labels:
-        if label not in gold_labels  or  label not in pre_labels: continue
+        if label not in gold_labels or label not in pre_labels:
+            continue
         f = get_f1_score_label(pre_lines, gold_lines, label=label)
         f_score[label] = f
         sum_num += f
 
     avg = sum_num / len(labels)
     return f_score, avg
-
 
 
 def _ngrams(words, n):
@@ -74,11 +74,14 @@ def _ngrams(words, n):
         if len(queue) == n:
             yield tuple(queue)
 
+
 def _ngram_counts(words, n):
     return collections.Counter(_ngrams(words, n))
 
+
 def _ngram_count(words, n):
     return max(len(words) - n + 1, 0)
+
 
 def _counter_overlap(counter1, counter2):
     result = 0
@@ -86,11 +89,13 @@ def _counter_overlap(counter1, counter2):
         result += min(v, counter2[k])
     return result
 
+
 def _safe_divide(numerator, denominator):
     if denominator > 0:
         return numerator / denominator
     else:
         return 0
+
 
 def _safe_f1(matches, recall_total, precision_total, alpha=0.5):
     recall_score = _safe_divide(matches, recall_total)
@@ -100,6 +105,7 @@ def _safe_f1(matches, recall_total, precision_total, alpha=0.5):
         return (precision_score * recall_score) / denom
     else:
         return 0.0
+
 
 def rouge_n(peer, model, n):
     """
@@ -116,7 +122,7 @@ def rouge_n(peer, model, n):
     model_counter = _ngram_counts(model, n)
     matches = _counter_overlap(peer_counter, model_counter)
     recall_total = _ngram_count(model, n)
-    precision_total =  _ngram_count(peer, n)
+    precision_total = _ngram_count(peer, n)
     return _safe_f1(matches, recall_total, precision_total)
 
 
@@ -165,6 +171,7 @@ def lcs(a, b):
     # Return the last cell of the last row
     return left
 
+
 def rouge_l(peer, models):
     """
     Compute the ROUGE-L score of a peer with respect to one or more models.
@@ -177,6 +184,7 @@ def rouge_l(peer, models):
     precision_total = len(models) * len(peer)
     return _safe_f1(matches, recall_total, precision_total)
 
+
 def rouge_2_corpus_multiple_target(peers, models):
     curpus_size = len(peers)
     rouge_score = 0
@@ -184,12 +192,14 @@ def rouge_2_corpus_multiple_target(peers, models):
         rouge_score += rouge_2_multiple_target(peer, model)
     return rouge_score / curpus_size
 
-def rouge_n_corpus(peers, models,n):
+
+def rouge_n_corpus(peers, models, n):
     curpus_size = len(peers)
     rouge_score = 0
     for (peer, model) in zip(peers, models):
         rouge_score += rouge_n(peer, model, n)
     return rouge_score / curpus_size
+
 
 def rouge_l_corpus(peers, models):
     curpus_size = len(peers)
@@ -197,4 +207,3 @@ def rouge_l_corpus(peers, models):
     for (peer, model) in zip(peers, models):
         rouge_score += rouge_l(peer, model)
     return rouge_score / curpus_size
-
