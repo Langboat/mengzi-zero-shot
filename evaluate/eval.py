@@ -1,6 +1,9 @@
 from load_data import *
 from metrics import cal_acc
-from ../mengzi_zs import MengziZeroShot
+
+import sys
+sys.path.append('../')
+from mengzi_zs import MengziZeroShot
 
 #  Overview
 #  task: sentiment_classifier, dataset: eprstmt

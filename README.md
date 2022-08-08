@@ -43,9 +43,9 @@ res = mz.inference(task_type='sentiment_classifier',
 
 ### 代码格式规范
 ```
-pip install pycodestyle==2.9.1
-# usage:
-pycodestyle test.py
+pip install flake8==5.0.4
+# usage: 
+flake8 --ignore=E501,E402 test.py
 ```
 
 ## TODO

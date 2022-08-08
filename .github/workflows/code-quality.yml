@@ -1,0 +1,32 @@
+name: Code-Quality
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  code-quality:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [Ubuntu 18.04.4 LTS]
+        python-version: [3.7.11]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up python
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Display python version
+      run: python -c "import sys; print(sys.version)"
+    - name: Install package dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r build_tools/requirements.txt
+
+    - name: Check code quality
+      run: |
+        flake8 --ignore=E501,E402 .。/setup.py

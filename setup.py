@@ -1,10 +1,8 @@
 from distutils.core import setup
-from setuptools import find_packages
 import os
-import mengzi_zs
 
 with open("README.rst", "r") as f:
-  long_description = f.read()
+    long_description = f.read()
 
 DIR_PATH = os.path.dirname(os.path.abspath(__file__))
 with open(os.path.join(DIR_PATH, 'requirements.txt'),
