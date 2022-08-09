@@ -18,8 +18,8 @@ class MengziZeroShot(object):
     def token_decode(self, s):
         return self.tokenizer.decode(s, skip_special_tokens=True)
 
-    def pick_most_common(self, l: list) -> str:
-        return Counter(l).most_common(1)[0][0]
+    def pick_most_common(self, x: list) -> str:
+        return Counter(x).most_common(1)[0][0]
 
     def inference(self, task_type, input_string, input_string2=None):
         # make input text
