@@ -15,16 +15,17 @@ def task_type_map(task_type):
     return task_map[task_type]
 
 
-def create_input_with_prompt(task_type, input_string, input_string_2=None):
+def create_input_with_prompt(task_type, input_string, input_string2=None, entity1=None, entity2=None):
     prompt_map = task_type_map(task_type)
 
     if task_type == 'text_similarity':
-        return prompt_map(input_string, input_string_2)
-
+        return prompt_map(input_string, input_string2)
+    elif task_type == 'financial_relationship_extraction':
+        return prompt_map(input_string, entity1, entity2)
     return prompt_map(input_string)
 
 
-def entity_extr(s):
+def entity_extr(s,):
     '''
     dataset: CLUENER
     task: 实体抽取
@@ -44,13 +45,13 @@ def text_sim(s1, s2):
     return prompts
 
 
-def finance_extr(s):
+def finance_extr(s, e1, e2):
     '''
     dataset:
     task: 金融关系抽取
     output:
     '''
-    prompts = [f'{s}答:']
+    prompts = [f'“{s}”中的“{e1}”和“{e2}”是什么关系？答:']
     return prompts
 
 

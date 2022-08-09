@@ -126,20 +126,20 @@ def rouge_n(peer, model, n):
     return _safe_f1(matches, recall_total, precision_total)
 
 
-def rouge_2_multiple_target(peers, model):
+def rouge_n_multiple_target(peers, model, n):
     """
     Compute the ROUGE-2 (bigram) score of a list of peers with respect to one model.
     """
     rouge_2 = 0
     for peer in peers:
-        rouge_2 += rouge_n(peer, model, 2)
+        rouge_2 += rouge_n(peer, model, n)
     rouge_2 /= len(peers)
     return rouge_2
 
 
-def rouge_2_corpus_multiple_target(peers, models):
+def rouge_n_corpus_multiple_target(peers, models, n=1):
     corpus_size = len(peers)
     rouge_score = 0
     for (peer, model) in zip(peers, models):
-        rouge_score += rouge_2_multiple_target(peer, model)
+        rouge_score += rouge_n_multiple_target(peer, model, n)
     return rouge_score / corpus_size

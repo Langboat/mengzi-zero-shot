@@ -40,13 +40,13 @@ def lcqmc_dataset() -> pd.DataFrame():
     label2zh = {'0': '否', '1': '是'}
 
     df = pd.DataFrame.from_records(read_txt(filename), columns=[
-                                   "input_string", "input_string_2", "label"])
+                                   "input_string", "input_string2", "label"])
     df['label'] = df['label'].apply(lambda x: label2zh[str(x.strip())])
     df['input_string'] = df['input_string'].apply(
         lambda x: text_processing(x))
-    df['input_string_2'] = df['input_string_2'].apply(
+    df['input_string2'] = df['input_string2'].apply(
         lambda x: text_processing(x))
-    df = df[['input_string', 'input_string_2', 'label']]
+    df = df[['input_string', 'input_string2', 'label']]
     return df
 
 
@@ -94,10 +94,9 @@ def finre_dataset() -> pd.DataFrame():
     df['entity1'] = df['entity1'].apply(lambda x: text_processing(x))
     df['entity2'] = df['entity2'].apply(lambda x: text_processing(x))
     df['sentence'] = df['sentence'].apply(lambda x: text_processing(x))
-    df['input_string'] = "“" + df['sentence'] + "”中的“" + \
-        df['entity1'] + "”和“" + df['entity2'] + "”是什么关系？"
+    df['input_string'] = df['sentence']
 
-    df = df[['input_string', 'label']]
+    df = df[['input_string', 'entity1', 'entity2', 'label']]
     return df
 
 

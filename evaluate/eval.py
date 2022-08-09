@@ -1,10 +1,10 @@
 # from mengzi_zs import MengziZeroShot
 
+from mengzi_zs import MengziZeroShot
 from load_data import eprstmt_dataset, tnews_dataset, lcqmc_dataset, cluner_dataset, finre_dataset, cote_dataset, cepsum_dataset, quake_qic_dataset
-from metrics import cal_acc, ner_get_f1_score, cal_f1, rouge_2_corpus_multiple_target
+from metrics import cal_acc, ner_get_f1_score, cal_f1, rouge_n_corpus_multiple_target
 import sys
 sys.path.append('./')
-from mengzi_zs import MengziZeroShot
 
 datasets = {'sentiment_classifier': eprstmt_dataset(),
             'news_classifier': tnews_dataset(),
@@ -19,7 +19,7 @@ mp = MengziZeroShot()  # default
 mp.load()
 
 # for test
-DEV_NUM = 32
+DEV_NUM = 2
 
 task_name_list = list(datasets.keys())
 
@@ -29,9 +29,22 @@ for task_name in task_name_list:
     df = df[:DEV_NUM]
 
     res_list = []
-    for s in list(df['input_string']):
-        res = mp.inference(task_type=task_name, input_string=s)
-        res_list.append(res)
+    if 'input_string2' in list(df.columns):
+        for _, row in df.iterrows():
+            res = mp.inference(task_type=task_name,
+                               input_string=row[0], input_string2=row[1])
+            res_list.append(res)
+    elif 'entity1' in list(df.columns):
+        for _, row in df.iterrows():
+            res = mp.inference(
+                task_type=task_name, input_string=row[0], entity1=row[1], entity2=row[2])
+            res_list.append(res)
+    else:
+        assert task_name != "text_similarity"
+        for s in list(df['input_string']):
+            res = mp.inference(task_type=task_name, input_string=s)
+            res_list.append(res)
+
     df['pred'] = res_list
 
     if task_name in ['sentiment_classifier', 'news_classifier', 'text_similarity', "medical_domain_intent_classifier"]:
@@ -60,8 +73,9 @@ for task_name in task_name_list:
         print(task_name, f"f1: {res_score}")
 
     elif task_name in ["ad_generation"]:
-        res_score = rouge_2_corpus_multiple_target(peers=list(df['label']), models=list(df['pred']))
-        print(task_name, f"rouge_2: {res_score}")
+        res_score = rouge_n_corpus_multiple_target(
+            peers=list(df['label']), models=list(df['pred']))
+        print(task_name, f"rouge_1: {res_score}")
 
     else:
         raise ValueError("not implement!")
