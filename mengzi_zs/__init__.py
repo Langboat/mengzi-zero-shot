@@ -9,7 +9,7 @@
 # website: www.langboat.com
 """
 
-__version__ = '0.1.0'
-__all__ = ['os', 'sys']
+from .inference import MengziZeroShot
 
-from .inference import *
+__all__ = ['MengziZeroShot']
+__version__ = '0.1.0'

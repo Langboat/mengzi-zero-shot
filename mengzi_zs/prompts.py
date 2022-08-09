@@ -28,7 +28,7 @@ def entity_extr(s):
     '''
     dataset: CLUENER
     task: 实体抽取
-    output: 
+    output:
     '''
     prompts = [f'“{s}”找出上述句子中的实体和他们对应的类别']
     return prompts
@@ -36,9 +36,9 @@ def entity_extr(s):
 
 def text_sim(s1, s2):
     '''
-    dataset: 
+    dataset:
     task: 语义相似度
-    output: 
+    output:
     '''
     prompts = [f'“{s1}”和“{s2}”这两句话是在说同一件事吗?']
     return prompts
@@ -46,9 +46,9 @@ def text_sim(s1, s2):
 
 def finance_extr(s):
     '''
-    dataset: 
+    dataset:
     task: 金融关系抽取
-    output: 
+    output:
     '''
     prompts = [f'{s}答:']
     return prompts
@@ -56,9 +56,9 @@ def finance_extr(s):
 
 def ad_gen(s):
     '''
-    dataset: 
+    dataset:
     task: 广告文案生成
-    output: 
+    output:
     '''
     prompts = [f'请根据以下产品信息设计广告文案。商品信息:{s}']
     return prompts
@@ -66,9 +66,9 @@ def ad_gen(s):
 
 def domain_cls(s):
     '''
-    dataset: 
+    dataset:
     task: 医学领域意图分类
-    output: 
+    output:
     '''
     # dataset: quake-qic
     prompts = [
@@ -80,7 +80,7 @@ def sentiment_cls(s):
     '''
     dataset: eprstmt
     task: 评论情感分类
-    output: 消极/积极 
+    output: 消极/积极
     '''
     prompts = [f'评论:{s}。请判断该条评论所属类别(积极或消极)并填至空格处。回答：']
     #    f'"{s}"。 如果这个评论的作者是客观的，那么请问这个评论的内容是什么态度的回答？答：',
@@ -90,9 +90,9 @@ def sentiment_cls(s):
 
 def com_obj_extr(s):
     '''
-    dataset: 
+    dataset:
     task: 评论对象抽取
-    output: 
+    output:
     '''
     prompts = [f'评论:{s}.这条评论的评价对象是谁？']
     return prompts
@@ -102,7 +102,7 @@ def news_cls(s):
     '''
     dataset: tnews
     task: 新闻分类
-    output: 
+    output:
     '''
     label_list = ['故事', '文化', '娱乐', '体育', '财经', '房产', '汽车',
                   '教育', '科技', '军事', '旅游', '国际', '股票', '农业', '电竞']

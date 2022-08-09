@@ -4,8 +4,8 @@ from utils import read_json, read_txt, text_processing
 
 
 def tnews_dataset() -> pd.DataFrame():
-    filename1 = '../datasets/tnews/dev.json'
-    filename2 = '../datasets/tnews/label_index2en2zh.json'
+    filename1 = './datasets/tnews/dev.json'
+    filename2 = './datasets/tnews/label_index2en2zh.json'
 
     label2zh = {}
     with open(filename2, "r") as f:
@@ -23,7 +23,7 @@ def tnews_dataset() -> pd.DataFrame():
 
 
 def eprstmt_dataset() -> pd.DataFrame():
-    filename = '../datasets/eprstmt/dev.json'
+    filename = './datasets/eprstmt/dev.json'
 
     label2zh = {'Positive': '积极',
                 'Negative': '消极'}
@@ -36,7 +36,7 @@ def eprstmt_dataset() -> pd.DataFrame():
 
 
 def lcqmc_dataset() -> pd.DataFrame():
-    filename = '../datasets/lcqmc/dev.txt'
+    filename = './datasets/lcqmc/dev.txt'
     label2zh = {'0': '否', '1': '是'}
 
     df = pd.DataFrame.from_records(read_txt(filename), columns=[
@@ -51,7 +51,7 @@ def lcqmc_dataset() -> pd.DataFrame():
 
 
 def cluner_dataset() -> pd.DataFrame():
-    filename = '../datasets/cluner/dev.json'
+    filename = './datasets/cluner/dev.json'
     # 地址（address），书名（book），公司（company），游戏（game），政府（goverment），电影（movie），姓名（name），组织机构（organization），职位（position），景点（scene）
 
     label2zh = {'address': '地址',
@@ -82,7 +82,7 @@ def cluner_dataset() -> pd.DataFrame():
 
 
 def finre_dataset() -> pd.DataFrame():
-    filename = '../datasets/finre/valid.txt'
+    filename = './datasets/finre/valid.txt'
     # label2zh={'0': '否', '1':'是' }
 
     df = pd.DataFrame.from_records(read_txt(filename), columns=[
@@ -101,16 +101,15 @@ def finre_dataset() -> pd.DataFrame():
     return df
 
 
-"""
-由于Cote数据集dev数据集没有label,所以在这里采用train数据集。
-"""
-
-
 def cote_dataset() -> pd.DataFrame():
-    filename_list = ['../datasets/cote/COTE-BD/train.tsv',
-                     '../datasets/cote/COTE-DP/train.tsv', '../datasets/cote/COTE-MFW/train.tsv']
+    """
+    由于Cote数据集dev数据集没有label,所以在这里采用train数据集。
+    """
+    filename_list = ['./datasets/cote/COTE-BD/train.tsv',
+                     './datasets/cote/COTE-DP/train.tsv',
+                     './datasets/cote/COTE-MFW/train.tsv']
     # label2zh={'0': '否', '1':'是' }
-    df_list = []
+    df_all = pd.DataFrame()
 
     def _read_txt(input_file):
         with open(input_file, encoding="utf-8") as f:
@@ -121,20 +120,19 @@ def cote_dataset() -> pd.DataFrame():
         df = pd.DataFrame.from_records(_read_txt(filename), columns=[
                                        "label", "input_string"])
         df = df.dropna()
-        # df = pd.read_csv(filename,names=["label","input_string"],sep='\t',header=0)
 
         df['label'] = df['label'].apply(lambda x: str(x.strip()))
         df['input_string'] = df['input_string'].apply(
             lambda x: text_processing(x))
 
         df = df[['input_string', 'label']]
-        df_list.append(df)
-
-    return df_list
+        df_all = pd.concat([df_all, df], axis=0)
+        df_all.sample(n=32, replace=True, random_state=42)
+    return df_all
 
 
 def cepsum_dataset() -> pd.DataFrame():
-    filename = '../datasets/cepsum/valid.json'
+    filename = './datasets/cepsum/valid.json'
 
     def _text_processing(text):
         res = ['\ufeff', '\xa0', '\u3000']
@@ -149,7 +147,6 @@ def cepsum_dataset() -> pd.DataFrame():
         return text_prcessed
 
     df = pd.DataFrame.from_records(read_json(filename))
-    # df.replace(to_replace='None', value=np.nan).dropna()
     df = df.dropna()
 
     df['label'] = df['targets'].apply(lambda x: _text_processing(x))
@@ -160,7 +157,7 @@ def cepsum_dataset() -> pd.DataFrame():
 
 
 def quake_qic_dataset() -> pd.DataFrame():
-    filename = '../datasets/quake-qic/processed_KUAKE-QIC_dev.json'
+    filename = './datasets/quake-qic/processed_KUAKE-QIC_dev.json'
     df = pd.DataFrame.from_records(read_json(filename))
 
     df['label'] = df['label'].apply(lambda x: text_processing(x))
