@@ -138,8 +138,8 @@ def rouge_2_multiple_target(peers, model):
 
 
 def rouge_2_corpus_multiple_target(peers, models):
-    curpus_size = len(peers)
+    corpus_size = len(peers)
     rouge_score = 0
     for (peer, model) in zip(peers, models):
         rouge_score += rouge_2_multiple_target(peer, model)
-    return rouge_score / curpus_size
+    return rouge_score / corpus_size
