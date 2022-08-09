@@ -1,16 +1,11 @@
 import pandas as pd
 import json
+from utils import read_json, read_txt, text_processing
 
 
 def tnews_dataset() -> pd.DataFrame():
     filename1 = '../datasets/tnews/dev.json'
     filename2 = '../datasets/tnews/label_index2en2zh.json'
-
-    def _read_json(input_file):
-        """Reads a json list file."""
-        with open(input_file, "r") as f:
-            reader = f.readlines()
-        return [json.loads(line.strip()) for line in reader]
 
     label2zh = {}
     with open(filename2, "r") as f:
@@ -20,7 +15,7 @@ def tnews_dataset() -> pd.DataFrame():
             i, label_zh = t['label'], t['label_zh']
             label2zh[i] = label_zh
 
-    df = pd.DataFrame.from_records(_read_json(filename1))
+    df = pd.DataFrame.from_records(read_json(filename1))
     df['label'] = df['label'].apply(lambda x: label2zh[str(x)])
     df['input_string'] = df['sentence']
     df = df[['input_string', 'label']]
@@ -30,16 +25,10 @@ def tnews_dataset() -> pd.DataFrame():
 def eprstmt_dataset() -> pd.DataFrame():
     filename = '../datasets/eprstmt/dev.json'
 
-    def _read_json(input_file):
-        """Reads a json list file."""
-        with open(input_file, "r") as f:
-            reader = f.readlines()
-        return [json.loads(line.strip()) for line in reader]
-
     label2zh = {'Positive': '积极',
                 'Negative': '消极'}
 
-    df = pd.DataFrame.from_records(_read_json(filename))
+    df = pd.DataFrame.from_records(read_json(filename))
     df['label'] = df['label'].apply(lambda x: label2zh[str(x)])
     df['input_string'] = df['sentence']
     df = df[['input_string', 'label']]
@@ -50,25 +39,13 @@ def lcqmc_dataset() -> pd.DataFrame():
     filename = '../datasets/lcqmc/dev.txt'
     label2zh = {'0': '否', '1': '是'}
 
-    def _text_processing(text):
-        res = ['\ufeff', '\xa0', '\u3000']
-        text = text.strip()
-        for ch in res:
-            text = text.replace(ch, '')
-        return text
-
-    def _read_txt(input_file):
-        with open(input_file, encoding="utf-8") as f:
-            reader = f.readlines()
-            return [tuple(line.split('\t')) for line in reader]
-
-    df = pd.DataFrame.from_records(_read_txt(filename), columns=[
+    df = pd.DataFrame.from_records(read_txt(filename), columns=[
                                    "input_string", "input_string_2", "label"])
     df['label'] = df['label'].apply(lambda x: label2zh[str(x.strip())])
     df['input_string'] = df['input_string'].apply(
-        lambda x: _text_processing(x))
+        lambda x: text_processing(x))
     df['input_string_2'] = df['input_string_2'].apply(
-        lambda x: _text_processing(x))
+        lambda x: text_processing(x))
     df = df[['input_string', 'input_string_2', 'label']]
     return df
 
@@ -89,12 +66,6 @@ def cluner_dataset() -> pd.DataFrame():
                 'scene': '景点'
                 }
 
-    def _read_json(input_file):
-        """Reads a json list file."""
-        with open(input_file, "r") as f:
-            reader = f.readlines()
-        return [json.loads(line.strip()) for line in reader]
-
     def _label(label):
         for x in label.keys():
             if x in label2zh.keys():
@@ -102,7 +73,7 @@ def cluner_dataset() -> pd.DataFrame():
 
         return label
 
-    df = pd.DataFrame.from_records(_read_json(filename))
+    df = pd.DataFrame.from_records(read_json(filename))
     df['label'] = df['label'].apply(lambda x: _label(x))
     df['input_string'] = df['text']
     df = df[['input_string', 'label']]
@@ -114,27 +85,15 @@ def finre_dataset() -> pd.DataFrame():
     filename = '../datasets/finre/valid.txt'
     # label2zh={'0': '否', '1':'是' }
 
-    def _text_processing(text):
-        res = ['\ufeff', '\xa0', '\u3000']
-        text = text.strip()
-        for ch in res:
-            text = text.replace(ch, '')
-        return text
-
-    def _read_txt(input_file):
-        with open(input_file, encoding="utf-8") as f:
-            reader = f.readlines()
-            return [tuple(line.split('\t')) for line in reader]
-
-    df = pd.DataFrame.from_records(_read_txt(filename), columns=[
+    df = pd.DataFrame.from_records(read_txt(filename), columns=[
                                    "entity1", "entity2", "label", "sentence"])
     # df.replace(to_replace='None', value=np.nan).dropna()
     df = df.dropna()
 
     df['label'] = df['label'].apply(lambda x: str(x.strip()))
-    df['entity1'] = df['entity1'].apply(lambda x: _text_processing(x))
-    df['entity2'] = df['entity2'].apply(lambda x: _text_processing(x))
-    df['sentence'] = df['sentence'].apply(lambda x: _text_processing(x))
+    df['entity1'] = df['entity1'].apply(lambda x: text_processing(x))
+    df['entity2'] = df['entity2'].apply(lambda x: text_processing(x))
+    df['sentence'] = df['sentence'].apply(lambda x: text_processing(x))
     df['input_string'] = "“" + df['sentence'] + "”中的“" + \
         df['entity1'] + "”和“" + df['entity2'] + "”是什么关系？"
 
@@ -153,13 +112,6 @@ def cote_dataset() -> pd.DataFrame():
     # label2zh={'0': '否', '1':'是' }
     df_list = []
 
-    def _text_processing(text):
-        res = ['\ufeff', '\xa0', '\u3000']
-        text = text.strip()
-        for ch in res:
-            text = text.replace(ch, '')
-        return text
-
     def _read_txt(input_file):
         with open(input_file, encoding="utf-8") as f:
             reader = f.readlines()
@@ -173,7 +125,7 @@ def cote_dataset() -> pd.DataFrame():
 
         df['label'] = df['label'].apply(lambda x: str(x.strip()))
         df['input_string'] = df['input_string'].apply(
-            lambda x: _text_processing(x))
+            lambda x: text_processing(x))
 
         df = df[['input_string', 'label']]
         df_list.append(df)
@@ -196,13 +148,7 @@ def cepsum_dataset() -> pd.DataFrame():
 
         return text_prcessed
 
-    def _read_json(input_file):
-        """Reads a json list file."""
-        with open(input_file, "r") as f:
-            reader = f.readlines()
-        return [json.loads(line.strip()) for line in reader]
-
-    df = pd.DataFrame.from_records(_read_json(filename))
+    df = pd.DataFrame.from_records(read_json(filename))
     # df.replace(to_replace='None', value=np.nan).dropna()
     df = df.dropna()
 
@@ -215,23 +161,9 @@ def cepsum_dataset() -> pd.DataFrame():
 
 def quake_qic_dataset() -> pd.DataFrame():
     filename = '../datasets/quake-qic/processed_KUAKE-QIC_dev.json'
+    df = pd.DataFrame.from_records(read_json(filename))
 
-    def _read_json(input_file):
-        """Reads a json list file."""
-        with open(input_file, "r") as f:
-            reader = f.readlines()
-        return [json.loads(line.strip()) for line in reader]
-
-    def _text_processing(text):
-        res = ['\ufeff', '\xa0', '\u3000']
-        text = text.strip()
-        for ch in res:
-            text = text.replace(ch, '')
-        return text
-
-    df = pd.DataFrame.from_records(_read_json(filename))
-
-    df['label'] = df['label'].apply(lambda x: _text_processing(x))
-    df['input_string'] = df['query'].apply(lambda x: _text_processing(x))
+    df['label'] = df['label'].apply(lambda x: text_processing(x))
+    df['input_string'] = df['query'].apply(lambda x: text_processing(x))
     df = df[['input_string', 'label']]
     return df

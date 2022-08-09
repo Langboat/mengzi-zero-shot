@@ -1,9 +1,10 @@
 # from mengzi_zs import MengziZeroShot
-from mengzi_zs import MengziZeroShot
+
 from load_data import eprstmt_dataset, tnews_dataset, lcqmc_dataset, cluner_dataset, finre_dataset, cote_dataset, cepsum_dataset, quake_qic_dataset
 from metrics import cal_acc, ner_get_f1_score, cal_f1, rouge_2_corpus_multiple_target
 import sys
 sys.path.append("../")
+from mengzi_zs import MengziZeroShot
 #  Overview
 #  task: sentiment_classifier, dataset: eprstmt
 #  task: news_classifier, dataset: tnews
@@ -22,7 +23,7 @@ mp.load()
 
 task_name_list = list(datasets.keys())
 # for test
-DEV_NUM = 32
+DEV_NUM = 2
 
 for task_name in task_name_list:
 
