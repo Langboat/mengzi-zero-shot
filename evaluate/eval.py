@@ -1,10 +1,12 @@
 # from mengzi_zs import MengziZeroShot
-
-from mengzi_zs import MengziZeroShot
+# from mengzi_zs import MengziZeroShot
+import sys
 from load_data import eprstmt_dataset, tnews_dataset, lcqmc_dataset, cluner_dataset, finre_dataset, cote_dataset, cepsum_dataset, quake_qic_dataset
 from metrics import cal_acc, ner_get_f1_score, cal_f1, rouge_n_corpus_multiple_target
-import sys
+import warnings
+warnings.filterwarnings("ignore")
 sys.path.append('./')
+from mengzi_zs import MengziZeroShot
 
 datasets = {'sentiment_classifier': eprstmt_dataset(),
             'news_classifier': tnews_dataset(),
@@ -19,7 +21,7 @@ mp = MengziZeroShot()  # default
 mp.load()
 
 # for test
-DEV_NUM = 2
+DEV_NUM = 32
 
 task_name_list = list(datasets.keys())
 
