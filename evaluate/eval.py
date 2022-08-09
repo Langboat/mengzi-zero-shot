@@ -23,7 +23,7 @@ mp.load()
 
 task_name_list = list(datasets.keys())
 # for test
-DEV_NUM = 2
+DEV_NUM = 32
 
 for task_name in task_name_list:
 
