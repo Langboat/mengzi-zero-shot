@@ -137,73 +137,9 @@ def rouge_2_multiple_target(peers, model):
     return rouge_2
 
 
-def lcs(a, b):
-    """
-    Compute the length of the longest common subsequence between two sequences.
-    Time complexity: O(len(a) * len(b))
-    Space complexity: O(min(len(a), len(b)))
-    """
-    # This is an adaptation of the standard LCS dynamic programming algorithm
-    # tweaked for lower memory consumption.
-    # Sequence a is laid out along the rows, b along the columns.
-    # Minimize number of columns to minimize required memory
-    if len(a) < len(b):
-        a, b = b, a
-    # Sequence b now has the minimum length
-    # Quit early if one sequence is empty
-    if len(b) == 0:
-        return 0
-    # Use a single buffer to store the counts for the current row, and
-    # overwrite it on each pass
-    row = [0] * len(b)
-    for ai in a:
-        left = 0
-        diag = 0
-        for j, bj in enumerate(b):
-            up = row[j]
-            if ai == bj:
-                value = diag + 1
-            else:
-                value = max(left, up)
-            row[j] = value
-            left = value
-            diag = up
-    # Return the last cell of the last row
-    return left
-
-
-def rouge_l(peer, models):
-    """
-    Compute the ROUGE-L score of a peer with respect to one or more models.
-    """
-    matches = 0
-    recall_total = 0
-    for model in models:
-        matches += lcs(model, peer)
-        recall_total += len(model)
-    precision_total = len(models) * len(peer)
-    return _safe_f1(matches, recall_total, precision_total)
-
-
 def rouge_2_corpus_multiple_target(peers, models):
     curpus_size = len(peers)
     rouge_score = 0
     for (peer, model) in zip(peers, models):
         rouge_score += rouge_2_multiple_target(peer, model)
-    return rouge_score / curpus_size
-
-
-def rouge_n_corpus(peers, models, n):
-    curpus_size = len(peers)
-    rouge_score = 0
-    for (peer, model) in zip(peers, models):
-        rouge_score += rouge_n(peer, model, n)
-    return rouge_score / curpus_size
-
-
-def rouge_l_corpus(peers, models):
-    curpus_size = len(peers)
-    rouge_score = 0
-    for (peer, model) in zip(peers, models):
-        rouge_score += rouge_l(peer, model)
     return rouge_score / curpus_size
