@@ -1,4 +1,5 @@
 import json
+import time
 
 
 def text_processing(text):
@@ -20,3 +21,10 @@ def read_json(input_file):
     with open(input_file, "r") as f:
         reader = f.readlines()
     return [json.loads(line.strip()) for line in reader]
+
+
+def save_json(input_json):
+    VERSION = time.strftime("%Y%m%d-%H%M%S")
+    with open(f'evaluate/results/result-{VERSION}.json', 'w', encoding='utf-8') as f:
+        json.dump(input_json, f, ensure_ascii=False, indent=4)
+    print(f'result-{VERSION}.json save completely..')
