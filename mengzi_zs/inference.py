@@ -21,11 +21,10 @@ class MengziZeroShot(object):
     def pick_most_common(self, x: list) -> str:
         return Counter(x).most_common(1)[0][0]
 
-    def inference(self, task_type, input_string, input_string2=None):
+    def inference(self, task_type, input_string, input_string2=None, entity1=None, entity2=None):
         # make input text
         input_text = create_input_with_prompt(
-            task_type, input_string, input_string2)
-
+            task_type, input_string, input_string2, entity1, entity2)
         # tokenize
         encodings = self.tokenizer(
             input_text, max_length=512, padding=True, return_tensors="pt")

@@ -19,7 +19,9 @@ inputs = [  # 实体抽取
     # 金融关系抽取
     {
         'task_type': 'financial_relationship_extraction',
-        'input_string': '“为打消市场顾虑,工行两位洋股东——美国运通和安联集团昨晚做出承诺,近期不会减持工行H股。”中的“工行”和“美国运通”是什么关系？'
+        'input_string': '为打消市场顾虑,工行两位洋股东——美国运通和安联集团昨晚做出承诺,近期不会减持工行H股。',
+        'entity1': "工行",
+        'entity2': "美国运通",
     },
     # 广告文案生成
     {
@@ -57,6 +59,9 @@ for t in inputs:
             task_type=task_type, input_string=input_string, input_string2=input_string_2)
         print(f'input_string1:{input_string}')
         print(f'input_string2:{input_string_2}')
+    elif task_type == "financial_relationship_extraction":
+        res = mz.inference(task_type=task_type, input_string=input_string,
+                           entity1=t['entity1'], entity2=t['entity2'])
     else:
         res = mz.inference(task_type=task_type, input_string=input_string)
         print(f'input_string:{input_string}')
