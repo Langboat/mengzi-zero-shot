@@ -155,8 +155,8 @@ def cepsum_dataset() -> pd.DataFrame():
     return df
 
 
-def quake_qic_dataset() -> pd.DataFrame():
-    filename = './datasets/quake-qic/processed_KUAKE-QIC_dev.json'
+def kuake_qic_dataset() -> pd.DataFrame():
+    filename = './datasets/kuake-qic/processed_KUAKE-QIC_dev.json'
     df = pd.DataFrame.from_records(read_json(filename))
 
     df['label'] = df['label'].apply(lambda x: text_processing(x))
