@@ -1,4 +1,17 @@
-# mengzi-zero-shot
+<h2 align="center">mengzi-zero-shot</h2>
+
+<div align="center">
+    <a href="https://github.com/Langboat/mengzi-zero-shot/actions">
+       <img alt="Unit Tests" src="https://github.com/Langboat/mengzi-zero-shot/actions/workflows/unit-tests.yml/badge.svg?branch=main">
+    </a>
+    <a href="https://pypi.org/project/mengzi-zero-shot/">
+        <img alt="PyPI Version" src="https://img.shields.io/pypi/v/mengzi-zero-shot?color=blue">
+    </a>
+    <a href="https://pypi.org/project/mengzi-zero-shot/">
+        <img alt="Python Versions" src="https://img.shields.io/pypi/pyversions/mengzi-zero-shot?colorB=blue">
+    </a>
+</div>
+
 NLU &amp; NLG (zero-shot) depend on mengzi-t5-base-mt pretrained model
 
 ## Quick Start
