@@ -1,6 +1,6 @@
 import sys
 import time
-from load_data import eprstmt_dataset, tnews_dataset, lcqmc_dataset, cluner_dataset, finre_dataset, cote_dataset, cepsum_dataset, quake_qic_dataset
+from load_data import eprstmt_dataset, tnews_dataset, lcqmc_dataset, cluner_dataset, finre_dataset, cote_dataset, cepsum_dataset, kuake_qic_dataset
 from metrics import cal_acc, ner_get_f1_score, cal_f1, rouge_n_corpus_multiple_target
 from utils import save_json
 sys.path.append('./')
@@ -16,7 +16,8 @@ datasets = {'sentiment_classifier': eprstmt_dataset(),
             "financial_relationship_extraction": finre_dataset(),
             "comment_object_extraction": cote_dataset(),
             "ad_generation": cepsum_dataset(),
-            "medical_domain_intent_classifier": quake_qic_dataset()}
+            "medical_domain_intent_classifier": kuake_qic_dataset()}
+
 
 
 mp = MengziZeroShot()  # default
