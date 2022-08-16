@@ -12,7 +12,7 @@ with open(os.path.join(DIR_PATH, 'requirements.txt'),
 setup(name='mengzi-zero-shot',  # 包名
       version='0.1.0',  # 版本号
       description='NLU & NLG (zero-shot) depend on mengzi-t5-base-mt',
-      long_description=long_description,pytho
+      long_description=long_description,
       author='huajingyun',
       author_email='huajingyun@hotmail.com',
       url='https://github.com/Langboat/mengzi-zero-shot',
