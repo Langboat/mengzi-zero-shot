@@ -17,14 +17,13 @@ NLU &amp; NLG (zero-shot) depend on mengzi-t5-base-mt pretrained model
 ## Quick Start
 ### 新建 conda 环境
 ```
-conda create -n mengzi_env python=3.7.11 -y
+conda create -n mengzi_env python=3.7 -y
 conda activate mengzi_env
 ```
 
-### pip 安装 （release后这行会改） 
+### pip 安装
 ```bash
-pip install mengzi_zero_shot-1.0.0-py3-none-any.whl
-# pip install mengzi-zero-shot
+pip install mengzi-zero-shot
 ```
 
 ### 测试提供的样例数据
@@ -219,7 +218,3 @@ pip install flake8==5.0.4
 # usage: 
 flake8 --ignore=E501,E402 test.py
 ```
-
-## TODO
-1. 目前 cpu inference ，可补充gpu inference
-2. 对比 cpu gpu inference 结果差异
