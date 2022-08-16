@@ -11,11 +11,11 @@ with open(os.path.join(DIR_PATH, 'requirements.txt'),
 
 setup(name='mengzi-zero-shot',  # 包名
       version='0.1.0',  # 版本号
-      description='NLU & NLG (zero-shot) depend on mengzi-t5-base-mt pretrained model',
-      long_description=long_description,
+      description='NLU & NLG (zero-shot) depend on mengzi-t5-base-mt',
+      long_description=long_description,pytho
       author='huajingyun',
       author_email='huajingyun@hotmail.com',
-      url='https://github.com/Langboat/Mengzi',
+      url='https://github.com/Langboat/mengzi-zero-shot',
       install_requires=requirements,
       license='Apache License 2.0',
       packages=['mengzi_zs'],
