@@ -12,7 +12,7 @@
     </a>
 </div>
 
-本项目提供的所有接口能力基于 [Mengzi-T5-base-MT](https://huggingface.co/Langboat/mengzi-t5-base-mt)。该模型是一个多任务模型，是在 [Mengzi-T5-base](https://huggingface.co/Langboat/mengzi-t5-base) 的基础上，使用了额外的27个数据集及301个prompt进行了多任务训练得到的。本项目提供实体抽取、语义相似度、金融关系抽取、广告文案生成、医学领域意图分类、情感分类、评论对象抽取、新闻分类等能力，开箱即用。
+本项目提供的所有接口能力基于 [Mengzi-T5-base-MT](https://huggingface.co/Langboat/mengzi-t5-base-mt)。该模型是一个多任务模型，是在 [Mengzi-T5-base](https://huggingface.co/Langboat/mengzi-t5-base) 的基础上，使用了额外的27个数据集及301个 prompt 进行了多任务训练得到的。本项目提供实体抽取、语义相似度、金融关系抽取、广告文案生成、医学领域意图分类、情感分类、评论对象抽取、新闻分类等能力，开箱即用。
 
 
 # 导航
