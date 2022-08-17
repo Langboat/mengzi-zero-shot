@@ -1,4 +1,17 @@
-# mengzi-zero-shot
+<h2 align="center">mengzi-zero-shot</h2>
+
+<div align="center">
+    <a href="https://github.com/Langboat/mengzi-zero-shot/actions">
+       <img alt="Unit Tests" src="https://github.com/Langboat/mengzi-zero-shot/actions/workflows/unit-tests.yml/badge.svg?branch=main">
+    </a>
+    <a href="https://pypi.org/project/mengzi-zero-shot/">
+        <img alt="PyPI Version" src="https://img.shields.io/pypi/v/mengzi-zero-shot?color=blue">
+    </a>
+    <a href="https://pypi.org/project/mengzi-zero-shot/">
+        <img alt="Python Versions" src="https://img.shields.io/pypi/pyversions/mengzi-zero-shot?colorB=blue">
+    </a>
+</div>
+
 NLU &amp; NLG (zero-shot) depend on mengzi-t5-base-mt pretrained model
 
 
@@ -7,14 +20,13 @@ NLU &amp; NLG (zero-shot) depend on mengzi-t5-base-mt pretrained model
 ### 新建 conda 环境
 
 ```
-conda create -n mengzi_env python=3.7.11 -y
+conda create -n mengzi_env python=3.7 -y
 conda activate mengzi_env
 ```
 
-### pip 安装 （release后这行会改） 
+### pip 安装
 ```bash
-pip install mengzi_zero_shot-1.0.0-py3-none-any.whl
-# pip install mengzi-zero-shot
+pip install mengzi-zero-shot
 ```
 
 ### 测试提供的样例数据
