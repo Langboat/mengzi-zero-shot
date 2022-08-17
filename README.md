@@ -24,18 +24,18 @@
 * [免责声明](#免责声明)
 
 # 快速上手
-## 新建 conda 环境
+## 新建环境
 ```
 conda create -n mengzi_env python=3.7 -y
 conda activate mengzi_env
 ```
 
-## pip 安装
+## pip安装
 ```bash
 pip install mengzi-zero-shot
 ```
 
-## 测试提供的样例数据
+## 测试样例
 ```
 python test.py
 ```
@@ -219,7 +219,6 @@ Output:
 ## 提交代码的格式规范
 ```
 pip install flake8==5.0.4
-# usage: 
 flake8 --ignore=E501,E402 test.py
 ```
 
