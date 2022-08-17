@@ -50,7 +50,7 @@ res = mz.inference(task_type='entity_extraction',
 print(res)
 ```
 
-#### 模型输出结果
+Output:
 
 ```
 "泗水：地址，泗水县文化市场综合执法局：政府，颜鲲：姓名"
@@ -70,7 +70,7 @@ res = mz.inference(task_type='text_similarity',
 print(res)
 ```
 
-#### 模型输出结果
+Output:
 ```
 "是"
 ```
@@ -91,7 +91,7 @@ res = mz.inference(task_type='financial_relationship_extraction',
 print(res)
 ```
 
-#### 模型输出结果
+Output:
 ```
  "被持股"
 ```
@@ -109,7 +109,7 @@ print(res)
 print(res)
 ```
 
-#### 模型输出结果
+Output:
 ```
  "小宽松版型与随性的风格颇具人气，高腰的设计，毛边裤脚，增添潮流气息。考究的做旧质感，洋溢着复古的气息，一款风格随性却不失复古文艺的直筒牛仔裤。,宽松的直筒版型，对身材的包容度较大，穿着舒适无束缚感。高腰的设计，提升腰线，拉长身材比例，打造大长腿的既视感"
 ```
@@ -123,10 +123,10 @@ from mengzi_zs import MengziZeroShot
 mz = MengziZeroShot()
 mz.load()
 res = mz.inference(task_type='medical_domain_intent_classifier', 
-                input_string='呼气试验阳性什么意思')
+                   input_string='呼气试验阳性什么意思')
 print(res)
 ```
-#### 模型输出结果
+Output:
 
 ```
  "指标解读"
@@ -141,10 +141,10 @@ from mengzi_zs import MengziZeroShot
 mz = MengziZeroShot()
 mz.load()
 res = mz.inference(task_type='sentiment_classifier', 
-                input_string='房间很一般，小，且让人感觉脏，隔音效果差，能听到走廊的人讲话，走廊光线昏暗，旁边没有什么可吃')
+                   input_string='房间很一般，小，且让人感觉脏，隔音效果差，能听到走廊的人讲话，走廊光线昏暗，旁边没有什么可吃')
 print(res)
 ```
-#### 模型输出结果
+Output:
 ```
  "消极"
 ```
@@ -158,10 +158,10 @@ from mengzi_zs import MengziZeroShot
 mz = MengziZeroShot()
 mz.load()
 res = mz.inference(task_type='comment_object_extraction', 
-                input_string='灵水的水质清澈，建议带个浮潜装备，可以看清湖里的小鱼。')
+                   input_string='灵水的水质清澈，建议带个浮潜装备，可以看清湖里的小鱼。')
 print(res)
 ```
-#### 模型输出结果
+Output:
 
 ```
  "灵水"
@@ -179,7 +179,7 @@ res = mz.inference(task_type='news_classifier',
                    input_string='懒人适合种的果树：长得多、好打理，果子多得都得送邻居吃')
 print(res)
 ```
-#### 模型输出结果
+Output:
 ```
  "农业"
 ```
