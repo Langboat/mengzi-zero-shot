@@ -18,6 +18,7 @@ datasets = {'sentiment_classifier': eprstmt_dataset(),
             "ad_generation": cepsum_dataset(),
             "medical_domain_intent_classifier": kuake_qic_dataset()}
 
+
 mp = MengziZeroShot()  # default
 mp.load()
 
