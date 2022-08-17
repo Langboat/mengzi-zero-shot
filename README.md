@@ -226,7 +226,9 @@ flake8 --ignore=E501,E402 test.py
 # 联系方式
 
 ## 微信讨论群
-【待放二维码】
+<img width="200" alt="image" src="https://user-images.githubusercontent.com/26166111/185085965-4ebefc47-ede6-47c8-9494-ad645a18e067.jpg">
+
+
 
 ## 邮箱
 huajingyun[at]langboat[dot]com
