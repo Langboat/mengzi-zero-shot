@@ -1,4 +1,4 @@
-<h2 align="center">mengzi-zero-shot</h2>
+<h2 align="center">Mengzi Zero-Shot</h2>
 
 <div align="center">
     <a href="https://github.com/Langboat/mengzi-zero-shot/actions">
@@ -12,29 +12,35 @@
     </a>
 </div>
 
-NLU &amp; NLG (zero-shot) depend on mengzi-t5-base-mt pretrained model
+本项目提供的所有接口能力基于 [Mengzi-T5-base-MT](https://huggingface.co/Langboat/mengzi-t5-base-mt)。该模型是一个多任务模型，是在 [Mengzi-T5-base](https://huggingface.co/Langboat/mengzi-t5-base) 的基础上，使用了额外的27个数据集及301个 prompt 进行了多任务训练得到的。本项目提供实体抽取、语义相似度、金融关系抽取、广告文案生成、医学领域意图分类、情感分类、评论对象抽取、新闻分类等能力，开箱即用。
 
 
-## Quick Start
+# 导航
+* [快速上手](#快速上手)
+* [接口能力](#接口能力)
+* [接口说明](#接口说明)
+* [贡献代码](#贡献代码)
+* [联系方式](#联系方式)
+* [免责声明](#免责声明)
 
-### 新建 conda 环境
-
+# 快速上手
+## 新建环境
 ```
 conda create -n mengzi_env python=3.7 -y
 conda activate mengzi_env
 ```
 
-### pip 安装
+## pip安装
 ```bash
 pip install mengzi-zero-shot
 ```
 
-### 测试提供的样例数据
+## 测试样例
 ```
 python test.py
 ```
 
-## 接口能力
+# 接口能力
 
 | 接口能力                 | 简要描述                                             |
 | ---------------- | ------------------------------------------------------------ |
@@ -47,9 +53,10 @@ python test.py
 | <a href="#obj">评论对象抽取</a>          | 对于给定的评论文本，自动抽取其中包含的评价对象。                 |
 | <a href="#news">新闻分类</a>          | 对输入的新闻文本进行分类，如农业、文化、电竞、体育、财经、娱乐、旅游、教育、金融、军事、房产、汽车、股票、国际等等。 |
 
-### 接口说明
 
-### <span id="entity"> 实体抽取 </span>
+# 接口说明
+
+## <span id="entity"> 实体抽取 </span>
 
 输入一段文本，抽取文中的实体，并判定其所属类别，如地址、书名、公司、游戏、政府、电影、姓名、组织、职位、景点等等。
 
@@ -68,7 +75,7 @@ Output:
 "泗水：地址，泗水县文化市场综合执法局：政府，颜鲲：姓名"
 ```
 
-### <span id="similarity"> 语义相似度 </span>
+## <span id="similarity"> 语义相似度 </span>
 
 输入两段文本，判断其语义是否相同。
 
@@ -87,7 +94,7 @@ Output:
 "是"
 ```
 
-### <span id="finance"> 金融关系抽取 </span>
+## <span id="finance"> 金融关系抽取 </span>
 
 
 输入一段文本，以及文本中蕴含的两个实体，判断文本中的两个实体属于哪种关系。
@@ -108,7 +115,7 @@ Output:
  "被持股"
 ```
 
-### <span id="ad"> 广告文案生成 </span>
+## <span id="ad"> 广告文案生成 </span>
 
 输入一段商品的描述信息文本，自动生成有效的广告文案。
 
@@ -126,7 +133,7 @@ Output:
  "小宽松版型与随性的风格颇具人气，高腰的设计，毛边裤脚，增添潮流气息。考究的做旧质感，洋溢着复古的气息，一款风格随性却不失复古文艺的直筒牛仔裤。,宽松的直筒版型，对身材的包容度较大，穿着舒适无束缚感。高腰的设计，提升腰线，拉长身材比例，打造大长腿的既视感"
 ```
 
-### <span id="medical"> 医学领域意图分类 </span>
+## <span id="medical"> 医学领域意图分类 </span>
 
 输入一段医疗查询文本，识别出文本中用户的查询意图。
 
@@ -144,7 +151,7 @@ Output:
  "指标解读"
 ```
 
-### <span id="sentiment"> 情感分类 </span> 
+## <span id="sentiment"> 情感分类 </span> 
 
 输入一段文本，对包含主观观点信息的文本进行情感极性类别分类（积极、消极）。
 
@@ -161,7 +168,7 @@ Output:
  "消极"
 ```
 
-### <span id="obj"> 评论对象抽取 </span> 
+## <span id="obj"> 评论对象抽取 </span> 
 
 输入一段文本，自动抽取其中包含的评价对象。
 
@@ -179,7 +186,7 @@ Output:
  "灵水"
 ```
 
-### <span id="news"> 新闻分类 </span> 
+## <span id="news"> 新闻分类 </span> 
 
 输入一段新闻，识别其所属类别，如农业、文化、电竞、体育、财经、娱乐、旅游、教育、金融、军事、房产、汽车、股票、国际等等。
 
@@ -196,17 +203,40 @@ Output:
  "农业"
 ```
 
-##  代码格式规范
 
+# 贡献代码
+
+## 为本项目改善 prompt
+可以在`mengzi_zs/prompts.py`查看已有 SDK 功能使用的相应的prompt，如有在已有任务对应的 dev 数据集上获得更好分数的 prompt，欢迎提交 issue 或直接提 pull request。分数以`evaluate/eval.py`执行结果为准。
+
+## 为本项目贡献新功能
+需要：
+1. `mengzi_zs/prompts.py`中构建新功能函数
+2. `datasets`文件夹中添加对应新功能的数据集
+3. `evaluate/eval.py`中添加测评计算方式
+欢迎提交 issue 或直接提 pull request，分数以`evaluate/eval.py`执行结果为准。
+
+## 提交代码的格式规范
 ```
 pip install flake8==5.0.4
-# usage: 
 flake8 --ignore=E501,E402 test.py
 ```
 
-## TODO
 
-1. 目前 cpu inference ，可补充gpu inference
-2. 对比 cpu gpu inference 结果差异
+# 联系方式
+
+## 微信讨论群
+<img width="200" alt="image" src="https://user-images.githubusercontent.com/26166111/185085965-4ebefc47-ede6-47c8-9494-ad645a18e067.jpg">
 
 
+
+## 邮箱
+huajingyun[at]langboat[dot]com
+
+
+# 免责声明
+该项目中的内容仅供技术研究参考，不作为任何结论性依据。使用者可以在许可证范围内任意使用该模型，但我们不对因使用该项目内容造成的直接或间接损失负责。技术报告中所呈现的实验结果仅表明在特定数据集和超参组合下的表现，并不能代表各个模型的本质。 实验结果可能因随机数种子，计算设备而发生改变。
+
+使用者以各种方式使用本模型（包括但不限于修改使用、直接使用、通过第三方使用）的过程中，不得以任何方式利用本模型直接或间接从事违反所属法域的法律法规、以及社会公德的行为。使用者需对自身行为负责，因使用本模型引发的一切纠纷，由使用者自行承担全部法律及连带责任。我们不承担任何法律及连带责任。
+
+我们拥有对本免责声明的解释、修改及更新权。
