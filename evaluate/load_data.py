@@ -163,3 +163,33 @@ def kuake_qic_dataset() -> pd.DataFrame():
     df['input_string'] = df['query'].apply(lambda x: text_processing(x))
     df = df[['input_string', 'label']]
     return df
+
+
+def express_ner_dataset() -> pd.DataFrame():
+    filename = './datasets/express-ner/dev.txt'
+    data = open(filename).readlines()
+    data = data[1:]
+    data = [line.strip().split('\t') for line in data]
+    new_data = []
+    for ins in data:
+        text = ins[0]
+        gold = ins[1]
+        text = text.split('\x02')
+        text = ''.join(text)
+        gold = gold.split('\x02')
+        name_start = None
+        name_end = None
+        for i, c in enumerate(gold):
+            if c == 'B-P':
+                name_start = i
+            elif c == 'I-P':
+                if i == len(gold) - 1:
+                    name_end = i
+                elif gold[i+1] != 'I-P':
+                    name_end = i
+        if name_start is None or name_end is None:
+            continue
+        new_data.append({'input_string': text_processing(text), 'label': text_processing(text[name_start:name_end+1])})
+    df = pd.DataFrame(new_data)
+    return df
+

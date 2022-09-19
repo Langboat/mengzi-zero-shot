@@ -46,6 +46,16 @@ inputs = [  # 实体抽取
         'task_type': 'news_classifier',
         'input_string': '懒人适合种的果树：长得多、好打理，果子多得都得送邻居吃'
     },
+    # 人名抽取
+    {
+        'task_type': 'name_extraction',
+        'input_string': '我是张三，我爱北京天安门'
+    },
+    # 公司名抽取
+    {
+        'task_type': 'company_extraction',
+        'input_string': '就天涯网推出彩票服务频道是否是业内人士所谓的打政策“擦边球”，记者近日对此事求证彩票监管部门。'
+    },
 ]
 
 for t in inputs:

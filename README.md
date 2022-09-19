@@ -52,6 +52,8 @@ python test.py
 | <a href="#sentiment">情感分类</a>          | 对文本进行情感极性类别分类（积极、消极）。 |
 | <a href="#obj">评论对象抽取</a>          | 对于给定的评论文本，自动抽取其中包含的评价对象。                 |
 | <a href="#news">新闻分类</a>          | 对输入的新闻文本进行分类，如农业、文化、电竞、体育、财经、娱乐、旅游、教育、金融、军事、房产、汽车、股票、国际等等。 |
+| <a href="#name">人名抽取</a> | 抽取文本中的人名。 |
+| <a href="#company">公司名抽取</a> | 抽取文本中的公司名。 |
 
 
 # 接口说明
@@ -203,6 +205,39 @@ Output:
  "农业"
 ```
 
+## <span id="name"> 人名抽取 </span>
+
+输入一段文本，识别其中出现的人名。
+
+```python
+from mengzi_zs import MengziZeroShot
+mz = MengziZeroShot()
+mz.load()
+res = mz.inference(task_type='name_extraction',
+		   input_string='我是张三，我爱北京天安门')
+print(res)
+```
+Output:
+```
+"张三"
+```
+
+## <span id="company"> 公司名抽取 </span>
+
+输入一段文本，识别其中出现的公司名。
+
+```python
+from mengzi_zs import MengziZeroShot
+mz = MengziZeroShot()
+mz.load()
+res = mz.inference(task_type='company_extraction',
+		   input_string='就天涯网推出彩票服务频道是否是业内人士所谓的打政策“擦边球”，记者近日对此事求证彩票监管部门。')
+print(res)
+```
+Output:
+```
+"天涯网:公司"
+```
 
 # 贡献代码
 
