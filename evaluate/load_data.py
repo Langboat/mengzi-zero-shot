@@ -50,15 +50,15 @@ def lcqmc_dataset() -> pd.DataFrame():
     return df
 
 
-def cluner_dataset() -> pd.DataFrame():
-    filename = './datasets/cluner/dev.json'
+def cluener_dataset() -> pd.DataFrame():
+    filename = './datasets/cluener/dev.json'
     # 地址（address），书名（book），公司（company），游戏（game），政府（goverment），电影（movie），姓名（name），组织机构（organization），职位（position），景点（scene）
 
     label2zh = {'address': '地址',
                 'book': '书名',
                 'company': '公司',
                 'game': '游戏',
-                'goverment': '政府',
+                'government': '政府',
                 'movie': '电影',
                 'name': '姓名',
                 'organization': '组织',
