@@ -81,6 +81,19 @@ def cluener_dataset() -> pd.DataFrame():
     return df
 
 
+def company_dataset() -> pd.DataFrame():
+    filename = './datasets/cluener/dev.json'
+
+    data = open(filename).readlines()
+    data = [json.loads(i) for i in data]
+    df = pd.DataFrame(columns=['input_string', 'label'])
+    for i in data:
+        if 'company' in i['label'].keys():
+            df = df.append({'input_string': i['text'], 'label': {'公司': i['label']['company']}}, ignore_index=True)
+    # length 279
+    return df
+
+
 def finre_dataset() -> pd.DataFrame():
     filename = './datasets/finre/valid.txt'
     # label2zh={'0': '否', '1':'是' }

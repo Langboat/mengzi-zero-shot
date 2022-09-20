@@ -40,13 +40,5 @@ class MengziZeroShot(object):
 
         # print("dec_out: ", dec_out)
         # return result to web
-        if task_type == 'company_extraction':
-            res = self.pick_most_common(dec_out)
-            for r in res.split(','):
-                if len(r.split(':')) < 2:
-                    continue
-                if r.split(':')[1] == '公司':
-                    return r.split(':')[0]
-            return ''
 
         return self.pick_most_common(dec_out)

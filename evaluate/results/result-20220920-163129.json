@@ -9,7 +9,7 @@
         "acc": 0.875
     },
     "entity_extraction": {
-        "f1_score_avg": 0.6177319838646496
+        "f1_score_avg": 0.6843986505313163
     },
     "financial_relationship_extraction": {
         "f1_score": 0.40625
@@ -27,6 +27,6 @@
         "f1_score": 0.90625
     },
     "company_extraction": {
-        "f1_score_avg": 1.0
+        "f1_score": 0.75
     }
 }

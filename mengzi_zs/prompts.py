@@ -11,7 +11,7 @@ def task_type_map(task_type):
         'ad_generation': ad_gen,
         'comment_object_extraction': com_obj_extr,
         'name_extraction': name_extr,
-        'company_extraction': entity_extr,
+        'company_extraction': company_extr,
     }
 
     return task_map[task_type]
@@ -126,11 +126,11 @@ def name_extr(s):
     return prompts
 
 
-# def company_extr(s):
-#     '''
-#     dataset: CLUENER
-#     task: 公司名抽取
-#     output:
-#     '''
-#     prompts = [f'找出句子“{s}”中实体类别为“公司”的实体。答：', ]
-#     return prompts
+def company_extr(s):
+    '''
+    dataset: CLUENER
+    task: 公司名抽取
+    output:
+    '''
+    prompts = [f'找出句子“{s}”中实体类别为“公司”的实体。答：', ]
+    return prompts

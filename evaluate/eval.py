@@ -1,6 +1,6 @@
 import sys
 import time
-from load_data import eprstmt_dataset, tnews_dataset, lcqmc_dataset, cluener_dataset, finre_dataset, cote_dataset, cepsum_dataset, kuake_qic_dataset, express_ner_dataset
+from load_data import eprstmt_dataset, tnews_dataset, lcqmc_dataset, cluener_dataset, finre_dataset, cote_dataset, cepsum_dataset, kuake_qic_dataset, express_ner_dataset, company_dataset
 from metrics import cal_acc, ner_get_f1_score, cal_f1, rouge_n_corpus_multiple_target
 from utils import save_json
 sys.path.append('./')
@@ -18,7 +18,7 @@ datasets = {'sentiment_classifier': eprstmt_dataset(),
             "ad_generation": cepsum_dataset(),
             "medical_domain_intent_classifier": kuake_qic_dataset(),
             'name_extraction': express_ner_dataset(),
-            'company_extraction': cluener_dataset()}
+            'company_extraction': company_dataset()}
 
 mp = MengziZeroShot()  # default
 mp.load()
@@ -32,11 +32,7 @@ time_start = time.time()
 for task_name in task_name_list:
 
     df = datasets[task_name]
-
-    if task_name in ['company_extraction']:
-        df = df[:DEV_NUM*6]
-    else:
-        df = df[:DEV_NUM]
+    df = df[:DEV_NUM]
 
     # inference
     if task_name in ['text_similarity']:
@@ -87,10 +83,10 @@ for task_name in task_name_list:
     elif task_name in ["company_extraction"]:
         labels = []
         for i in list(df['label']):
-            try:
-                labels.append(i['公司'])
-            except KeyError:
-                labels.append('')
+            tmp = []
+            for j in i['公司'].keys():
+                tmp.append(j)
+            labels.append(','.join(tmp))
         res_score = cal_f1(labels=labels, preds=list(df['pred']))
         print(f"{task_name}  f1: {res_score}")
         results[task_name]['f1_score'] = res_score
