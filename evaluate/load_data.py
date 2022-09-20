@@ -198,11 +198,10 @@ def express_ner_dataset() -> pd.DataFrame():
             elif c == 'I-P':
                 if i == len(gold) - 1:
                     name_end = i
-                elif gold[i+1] != 'I-P':
+                elif gold[i + 1] != 'I-P':
                     name_end = i
         if name_start is None or name_end is None:
             continue
-        new_data.append({'input_string': text_processing(text), 'label': text_processing(text[name_start:name_end+1])})
+        new_data.append({'input_string': text_processing(text), 'label': text_processing(text[name_start:name_end + 1])})
     df = pd.DataFrame(new_data)
     return df
-
