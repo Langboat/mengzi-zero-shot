@@ -40,4 +40,5 @@ class MengziZeroShot(object):
 
         # print("dec_out: ", dec_out)
         # return result to web
+
         return self.pick_most_common(dec_out)

@@ -10,6 +10,8 @@ def task_type_map(task_type):
         'financial_relationship_extraction': finance_extr,
         'ad_generation': ad_gen,
         'comment_object_extraction': com_obj_extr,
+        'name_extraction': name_extr,
+        'company_extraction': company_extr,
     }
 
     return task_map[task_type]
@@ -111,4 +113,24 @@ def news_cls(s):
     prompts = [f'“{s}”是什么新闻频道写的？选项：{"，".join(label_list)}。答：', ]
     #    f'这条新闻是关于什么主题的？新闻：{s}。选项：{"，".join(label_list)}。答：',
     #    f'这是关于“{"，".join(label_list)}”中哪个选项的文章？文章：{s}。 答：']
+    return prompts
+
+
+def name_extr(s):
+    '''
+    dataset: express-ner
+    task: 人名抽取
+    output:
+    '''
+    prompts = [f'{s}抽取以上句子中的姓名。回答：']
+    return prompts
+
+
+def company_extr(s):
+    '''
+    dataset: CLUENER
+    task: 公司名抽取
+    output:
+    '''
+    prompts = [f'找出句子“{s}”中实体类别为“公司”的实体。答：', ]
     return prompts

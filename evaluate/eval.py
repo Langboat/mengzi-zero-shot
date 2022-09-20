@@ -1,6 +1,6 @@
 import sys
 import time
-from load_data import eprstmt_dataset, tnews_dataset, lcqmc_dataset, cluner_dataset, finre_dataset, cote_dataset, cepsum_dataset, kuake_qic_dataset
+from load_data import eprstmt_dataset, tnews_dataset, lcqmc_dataset, cluener_dataset, finre_dataset, cote_dataset, cepsum_dataset, kuake_qic_dataset, express_ner_dataset, company_dataset
 from metrics import cal_acc, ner_get_f1_score, cal_f1, rouge_n_corpus_multiple_target
 from utils import save_json
 sys.path.append('./')
@@ -12,11 +12,13 @@ pd.options.mode.chained_assignment = None
 datasets = {'sentiment_classifier': eprstmt_dataset(),
             'news_classifier': tnews_dataset(),
             'text_similarity': lcqmc_dataset(),
-            'entity_extraction': cluner_dataset(),
+            'entity_extraction': cluener_dataset(),
             "financial_relationship_extraction": finre_dataset(),
             "comment_object_extraction": cote_dataset(),
             "ad_generation": cepsum_dataset(),
-            "medical_domain_intent_classifier": kuake_qic_dataset()}
+            "medical_domain_intent_classifier": kuake_qic_dataset(),
+            'name_extraction': express_ner_dataset(),
+            'company_extraction': company_dataset()}
 
 mp = MengziZeroShot()  # default
 mp.load()
@@ -68,7 +70,7 @@ for task_name in task_name_list:
         print(f"{task_name} f1_score_avg: {f1_score_avg}")
         results[task_name]['f1_score_avg'] = f1_score_avg
 
-    elif task_name in ["financial_relationship_extraction", "comment_object_extraction"]:
+    elif task_name in ["financial_relationship_extraction", "comment_object_extraction", "name_extraction"]:
         res_score = cal_f1(labels=list(df['label']), preds=list(df['pred']))
         print(f"{task_name}  f1: {res_score}")
         results[task_name]['f1_score'] = res_score
@@ -77,6 +79,17 @@ for task_name in task_name_list:
         res_score = rouge_n_corpus_multiple_target(peers=list(df['label']), models=list(df['pred']))
         print(f"{task_name} rouge_1: {res_score}")
         results[task_name]['rouge_1'] = res_score
+
+    elif task_name in ["company_extraction"]:
+        labels = []
+        for i in list(df['label']):
+            tmp = []
+            for j in i['公司'].keys():
+                tmp.append(j)
+            labels.append(','.join(tmp))
+        res_score = cal_f1(labels=labels, preds=list(df['pred']))
+        print(f"{task_name}  f1: {res_score}")
+        results[task_name]['f1_score'] = res_score
 
     else:
         raise ValueError("not implement!")

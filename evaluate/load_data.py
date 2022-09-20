@@ -50,15 +50,15 @@ def lcqmc_dataset() -> pd.DataFrame():
     return df
 
 
-def cluner_dataset() -> pd.DataFrame():
-    filename = './datasets/cluner/dev.json'
+def cluener_dataset() -> pd.DataFrame():
+    filename = './datasets/cluener/dev.json'
     # 地址（address），书名（book），公司（company），游戏（game），政府（goverment），电影（movie），姓名（name），组织机构（organization），职位（position），景点（scene）
 
     label2zh = {'address': '地址',
                 'book': '书名',
                 'company': '公司',
                 'game': '游戏',
-                'goverment': '政府',
+                'government': '政府',
                 'movie': '电影',
                 'name': '姓名',
                 'organization': '组织',
@@ -78,6 +78,19 @@ def cluner_dataset() -> pd.DataFrame():
     df['input_string'] = df['text']
     df = df[['input_string', 'label']]
 
+    return df
+
+
+def company_dataset() -> pd.DataFrame():
+    filename = './datasets/cluener/dev.json'
+
+    data = open(filename).readlines()
+    data = [json.loads(i) for i in data]
+    df = pd.DataFrame(columns=['input_string', 'label'])
+    for i in data:
+        if 'company' in i['label'].keys():
+            df = df.append({'input_string': i['text'], 'label': {'公司': i['label']['company']}}, ignore_index=True)
+    # length 279
     return df
 
 
@@ -162,4 +175,33 @@ def kuake_qic_dataset() -> pd.DataFrame():
     df['label'] = df['label'].apply(lambda x: text_processing(x))
     df['input_string'] = df['query'].apply(lambda x: text_processing(x))
     df = df[['input_string', 'label']]
+    return df
+
+
+def express_ner_dataset() -> pd.DataFrame():
+    filename = './datasets/express-ner/dev.txt'
+    data = open(filename).readlines()
+    data = data[1:]
+    data = [line.strip().split('\t') for line in data]
+    new_data = []
+    for ins in data:
+        text = ins[0]
+        gold = ins[1]
+        text = text.split('\x02')
+        text = ''.join(text)
+        gold = gold.split('\x02')
+        name_start = None
+        name_end = None
+        for i, c in enumerate(gold):
+            if c == 'B-P':
+                name_start = i
+            elif c == 'I-P':
+                if i == len(gold) - 1:
+                    name_end = i
+                elif gold[i + 1] != 'I-P':
+                    name_end = i
+        if name_start is None or name_end is None:
+            continue
+        new_data.append({'input_string': text_processing(text), 'label': text_processing(text[name_start:name_end + 1])})
+    df = pd.DataFrame(new_data)
     return df
